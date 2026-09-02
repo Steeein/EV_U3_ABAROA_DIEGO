@@ -1,0 +1,118 @@
+/* Estilos mínimos y ordenados para las vistas de autenticación */
+* { box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1f2937;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.card .subtitulo {
+    margin: 0 0 24px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.campo { margin-bottom: 16px; }
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.campo input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.btn {
+    width: 100%;
+    padding: 11px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn:hover { background: #1d4ed8; }
+
+.enlace {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.enlace:hover { text-decoration: underline; }
+
+/* Mensajes */
+.alerta {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.alerta-exito { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.alerta-error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+.errores {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.errores li { margin-bottom: 4px; }
+
+.recordar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.recordar input { width: auto; }
+
+/* Panel de inicio */
+.panel { max-width: 520px; text-align: center; }
+.panel .dato { text-align: left; margin: 8px 0; }
+.panel .dato strong { display: inline-block; width: 90px; }

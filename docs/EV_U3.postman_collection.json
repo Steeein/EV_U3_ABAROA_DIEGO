@@ -1,0 +1,225 @@
+{
+  "info": {
+    "name": "EV_U3 - Gestion de Proyectos (Tech Solutions)",
+    "description": "Coleccion de pruebas de la Evaluacion Unidad 3. Ejecute primero '00 - Login' : el token JWT se guarda solo y el resto de las peticiones lo usan automaticamente.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000/api" },
+    { "key": "token", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "00 - Login (ejecutar primero) -> 200",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.data && json.data.access_token) {",
+              "    pm.collectionVariables.set('token', json.data.access_token);",
+              "    console.log('Token guardado correctamente');",
+              "}",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"correo\": \"admin@techsolutions.cl\",\n    \"clave\": \"desarrollo_software_1\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "01 - Login con credenciales incorrectas -> 401",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"correo\": \"admin@techsolutions.cl\",\n    \"clave\": \"clave-incorrecta\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "02 - Registrar usuario -> 201",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nombre\": \"Usuario Demo\",\n    \"correo\": \"demo@techsolutions.cl\",\n    \"clave\": \"123456\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"] }
+      }
+    },
+    {
+      "name": "03 - Ruta protegida SIN token -> 401",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/proyectos", "host": ["{{base_url}}"], "path": ["proyectos"] }
+      }
+    },
+    {
+      "name": "04 - Usuario autenticado (me) -> 200",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/auth/me", "host": ["{{base_url}}"], "path": ["auth", "me"] }
+      }
+    },
+    {
+      "name": "10 - INDICADOR 1: Crear proyecto -> 201",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nombre\": \"Nuevo CRM Corporativo\",\n    \"fecha_inicio\": \"2026-09-01\",\n    \"estado\": \"Pendiente\",\n    \"responsable\": \"Diego\",\n    \"monto\": 9500000,\n    \"created_by\": 1\n}"
+        },
+        "url": { "raw": "{{base_url}}/proyectos", "host": ["{{base_url}}"], "path": ["proyectos"] }
+      }
+    },
+    {
+      "name": "11 - INDICADOR 1: Crear con campos vacios -> 422",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n    \"nombre\": \"\",\n    \"estado\": \"\"\n}" },
+        "url": { "raw": "{{base_url}}/proyectos", "host": ["{{base_url}}"], "path": ["proyectos"] }
+      }
+    },
+    {
+      "name": "20 - INDICADOR 2: Listar todos -> 200",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/proyectos", "host": ["{{base_url}}"], "path": ["proyectos"] }
+      }
+    },
+    {
+      "name": "21 - INDICADOR 2: Obtener por Id -> 200",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/proyectos/1", "host": ["{{base_url}}"], "path": ["proyectos", "1"] }
+      }
+    },
+    {
+      "name": "22 - INDICADOR 2: Id inexistente -> 404",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/proyectos/9999", "host": ["{{base_url}}"], "path": ["proyectos", "9999"] }
+      }
+    },
+    {
+      "name": "23 - EXTRA: Filtro dinamico por estado -> 200",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/proyectos?estado=Pendiente",
+          "host": ["{{base_url}}"],
+          "path": ["proyectos"],
+          "query": [{ "key": "estado", "value": "Pendiente" }]
+        }
+      }
+    },
+    {
+      "name": "30 - INDICADOR 3: Actualizar (PUT) -> 200",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nombre\": \"ERP Corporativo v2\",\n    \"fecha_inicio\": \"2026-04-01\",\n    \"estado\": \"Finalizado\",\n    \"responsable\": \"Camila Rojas\",\n    \"monto\": 20000000,\n    \"created_by\": 1\n}"
+        },
+        "url": { "raw": "{{base_url}}/proyectos/1", "host": ["{{base_url}}"], "path": ["proyectos", "1"] }
+      }
+    },
+    {
+      "name": "31 - INDICADOR 3: Actualizar parcial (PATCH) -> 200",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n    \"estado\": \"Cancelado\"\n}" },
+        "url": { "raw": "{{base_url}}/proyectos/2", "host": ["{{base_url}}"], "path": ["proyectos", "2"] }
+      }
+    },
+    {
+      "name": "32 - INDICADOR 3: Actualizar Id inexistente -> 404",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n    \"nombre\": \"No existe\"\n}" },
+        "url": { "raw": "{{base_url}}/proyectos/9999", "host": ["{{base_url}}"], "path": ["proyectos", "9999"] }
+      }
+    },
+    {
+      "name": "40 - INDICADOR 4: Eliminar -> 204",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/proyectos/3", "host": ["{{base_url}}"], "path": ["proyectos", "3"] }
+      }
+    },
+    {
+      "name": "41 - INDICADOR 4: Eliminar Id inexistente -> 404",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/proyectos/9999", "host": ["{{base_url}}"], "path": ["proyectos", "9999"] }
+      }
+    },
+    {
+      "name": "50 - Cerrar sesion (logout) -> 200",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Accept", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/auth/logout", "host": ["{{base_url}}"], "path": ["auth", "logout"] }
+      }
+    }
+  ]
+}
