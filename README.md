@@ -5,7 +5,7 @@ con autenticación mediante **JWT**.
 
 **Asignatura:** Desarrollo de Software Web I — IF204IINF
 **Evaluación:** Sumativa Unidad 3 — Implementa operaciones CRUD para interactuar con la base de datos
-**Estudiante:** _(completar)_
+**Estudiante:** Diego Abaroa Badilla
 **Docente:** _(completar)_
 
 ---
@@ -39,7 +39,7 @@ git clone <URL-DEL-REPOSITORIO>
 ```
 
 ```bash
-cd EV_U3_APELLIDO_NOMBRE
+cd EV_U3_ABAROA_DIEGO
 ```
 
 ### 2. Instalar dependencias
