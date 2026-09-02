@@ -6,7 +6,7 @@ con autenticación mediante **JWT**.
 **Asignatura:** Desarrollo de Software Web I — IF204IINF
 **Evaluación:** Sumativa Unidad 3 — Implementa operaciones CRUD para interactuar con la base de datos
 **Estudiante:** Diego Abaroa Badilla
-**Repositorio:** https://github.com/Steeein/Eva_U3_Desarrollo_Web
+**Repositorio:** https://github.com/Steeein/EV_U3_ABAROA_DIEGO
 **Docente:** _(completar)_
 
 ---
@@ -36,11 +36,11 @@ con autenticación mediante **JWT**.
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/Steeein/Eva_U3_Desarrollo_Web.git
+git clone https://github.com/Steeein/EV_U3_ABAROA_DIEGO.git
 ```
 
 ```bash
-cd Eva_U3_Desarrollo_Web
+cd EV_U3_ABAROA_DIEGO
 ```
 
 ### 2. Instalar dependencias
