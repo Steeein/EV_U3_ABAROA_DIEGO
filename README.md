@@ -1,4 +1,4 @@
-# EV_U3 — Software de Gestión de Proyectos (Tech Solutions)
+﻿# EV_U3 — Software de Gestión de Proyectos (Tech Solutions)
 
 API REST con operaciones CRUD sobre base de datos, desarrollada con **Laravel 12** y **Eloquent ORM**,
 con autenticación mediante **JWT**.
@@ -7,7 +7,7 @@ con autenticación mediante **JWT**.
 **Evaluación:** Sumativa Unidad 3 — Implementa operaciones CRUD para interactuar con la base de datos
 **Estudiante:** Diego Abaroa Badilla
 **Repositorio:** https://github.com/Steeein/EV_U3_ABAROA_DIEGO
-**Docente:** _(completar)_
+**Docente:** Victor Israel Cofre Farias
 
 ---
 
