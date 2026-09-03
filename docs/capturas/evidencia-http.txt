@@ -1,0 +1,103 @@
+###INDICADOR 1 - Crear proyecto (201 Created)
+$ curl -i -X POST http://127.0.0.1:8000/api/proyectos -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"nombre":"Sistema de Inventario","fecha_inicio":"2026-09-15","estado":"Pendiente","responsable":"Diego Abaroa","monto":12500000,"created_by":1}'
+HTTP/1.1 201 Created
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:49 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"id":4,"nombre":"Sistema de Inventario","fecha_inicio":"2026-09-15","estado":"Pendiente","responsable":"Diego Abaroa","monto":"12500000.00","created_by":1,"created_at":"2026-09-03T00:13:49.000000Z","updated_at":"2026-09-03T00:13:49.000000Z"}
+
+###INDICADOR 1 - Crear con campos vacios (422)
+$ curl -i -X POST http://127.0.0.1:8000/api/proyectos -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"nombre":"","fecha_inicio":"","estado":"","responsable":"","monto":"","created_by":""}'
+HTTP/1.1 422 Unprocessable Content
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:49 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"message":"Los datos enviados no son validos.","errors":{"nombre":["El campo nombre es obligatorio y no puede estar vacio."],"fecha_inicio":["El campo fecha inicio es obligatorio y no puede estar vacio."],"estado":["El campo estado es obligatorio y no puede estar vacio."],"responsable":["El campo responsable es obligatorio y no puede estar vacio."],"monto":["El campo monto es obligatorio y no puede estar vacio."],"created_by":["El campo created by es obligatorio y no puede estar vacio."]}}
+
+###INDICADOR 2 - Obtener proyecto por Id (200 OK)
+$ curl -i -X GET http://127.0.0.1:8000/api/proyectos/1 -H "Authorization: Bearer <TOKEN>"
+HTTP/1.1 200 OK
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:49 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"id":1,"nombre":"Migracion ERP Corporativo","fecha_inicio":"2026-03-10","estado":"En Proceso","responsable":"Camila Rojas","monto":"18500000.00","created_by":1,"created_at":"2026-09-03T00:13:33.000000Z","updated_at":"2026-09-03T00:13:33.000000Z"}
+
+###INDICADOR 2 - Id inexistente (404 Not Found)
+$ curl -i -X GET http://127.0.0.1:8000/api/proyectos/9999 -H "Authorization: Bearer <TOKEN>"
+HTTP/1.1 404 Not Found
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:49 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"message":"Proyecto no encontrado.","id":"9999"}
+
+###INDICADOR 3 - Actualizar proyecto (200 OK)
+$ curl -i -X PUT http://127.0.0.1:8000/api/proyectos/1 -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"nombre":"Migracion ERP Corporativo v2","fecha_inicio":"2026-04-01","estado":"Finalizado","responsable":"Camila Rojas","monto":20000000,"created_by":1}'
+HTTP/1.1 200 OK
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:50 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"id":1,"nombre":"Migracion ERP Corporativo v2","fecha_inicio":"2026-04-01","estado":"Finalizado","responsable":"Camila Rojas","monto":"20000000.00","created_by":1,"created_at":"2026-09-03T00:13:33.000000Z","updated_at":"2026-09-03T00:13:50.000000Z"}
+
+###INDICADOR 4 - Eliminar proyecto (204 No Content)
+$ curl -i -X DELETE http://127.0.0.1:8000/api/proyectos/3 -H "Authorization: Bearer <TOKEN>"
+HTTP/1.1 204 No Content
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:50 GMT
+Access-Control-Allow-Origin: *
+
+
+
+###INDICADOR 4 - Eliminar Id inexistente (404)
+$ curl -i -X DELETE http://127.0.0.1:8000/api/proyectos/9999 -H "Authorization: Bearer <TOKEN>"
+HTTP/1.1 404 Not Found
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:50 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"message":"Proyecto no encontrado.","id":"9999"}
+
+###JWT - Acceso sin token (401 Unauthorized)
+$ curl -i -X GET http://127.0.0.1:8000/api/proyectos
+HTTP/1.1 401 Unauthorized
+Host: 127.0.0.1:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Thu, 03 Sep 2026 00:13:50 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"code":401,"message":"No autenticado. Debe enviar un token JWT valido.","data":null}
+
